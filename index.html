@@ -1,405 +1,83 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#14243a">
-<title>نظام حضور الموظفين بالتعرف على الوجه</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10243b"><title>نظام الحضور السحابي</title>
 <style>
-:root{--navy:#14243a;--blue:#2864dc;--bg:#f3f6fb;--line:#e4eaf2;--muted:#718096;--green:#13865e;--red:#c43d48;--amber:#a96b0b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:#1d2939}
-header{background:linear-gradient(120deg,#14243a,#28517d);color:#fff;padding:22px max(18px,calc((100% - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
-header h1{margin:0 0 7px;font-size:22px}header p{margin:0;color:#d4dfeb;font-size:13px}.clock{text-align:left;font-size:22px;font-weight:bold}
-main{max-width:1180px;margin:22px auto;padding:0 16px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}
-button{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:white;cursor:pointer;font:inherit;font-size:13px}
-button.secondary{background:#e9efff;color:#234d9c}button.dark{background:var(--navy)}button.danger{background:#fff0f0;color:var(--red)}button:disabled{opacity:.5;cursor:not-allowed}
-.tab.active{background:var(--navy);color:#fff}.panel{display:none}.panel.active{display:block}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}.card,.box{background:white;border:1px solid var(--line);border-radius:13px;padding:17px;box-shadow:0 3px 12px #1b36500a}
-.card small{color:var(--muted)}.num{font-size:27px;font-weight:bold;margin-top:9px}.green{color:var(--green)}.amber{color:var(--amber)}.red{color:var(--red)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box h3{font-size:16px;margin:0 0 14px}
-label{display:block;font-size:13px;color:#526174;margin:10px 0 5px}input,select{width:100%;padding:10px;border:1px solid #d7e0eb;border-radius:8px;font:inherit;background:white}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px}.full{grid-column:1/-1}.actions,.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:13px}
-.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:640px;font-size:13px}th,td{padding:10px 9px;border-bottom:1px solid var(--line);text-align:right}th{background:#f7f9fc;color:#526174}
-.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#e9f8f1;color:#08764f;font-size:11px}.badge.late{background:#fff4df;color:#98600b}.badge.out{background:#eef2f7;color:#526174}
-.muted,.help{color:var(--muted);font-size:12px;line-height:1.8}.status{padding:10px;border-radius:9px;background:#f2f6ff;color:#294d8c;font-size:13px;margin-top:12px;line-height:1.7}.status.ok{background:#eaf8f1;color:#08764f}.status.err{background:#fff0f0;color:#a52e38}
-.camera{background:#101827;border-radius:12px;overflow:hidden;position:relative;min-height:210px;display:flex;align-items:center;justify-content:center}
-video{width:100%;max-height:390px;object-fit:cover;transform:scaleX(-1)}canvas{display:none}#enrollSign,#attendanceSign{display:block;width:100%;height:140px;background:#fff;border:2px dashed #9aa9bd;border-radius:10px;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}.camera-placeholder{color:#cbd5e1;padding:30px;text-align:center}
-.preview{width:58px;height:58px;object-fit:cover;border-radius:50%;vertical-align:middle}.signature-preview{width:90px;height:38px;object-fit:contain;background:#fff;border:1px solid #d7e0eb;border-radius:6px;cursor:pointer;vertical-align:middle}
-.manager-tab{display:none}.manager-only{display:none}.manager-on .manager-tab{display:inline-block}.manager-on .manager-only{display:block}
-.punch-result{margin-top:14px;border:2px solid #d9e4f5;border-radius:13px;background:#f8fbff;padding:18px;display:flex;flex-direction:column;gap:8px;min-height:90px}.punch-result.success{border-color:#9bd8bb;background:#edfff5}.punch-result strong{font-size:21px;color:#14243a}.punch-result span{font-size:15px;line-height:1.7;color:#43546b}
-.modal{display:none;position:fixed;inset:0;background:#101827b8;z-index:1000;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-card{background:#fff;width:min(100%,420px);padding:24px;border-radius:16px;position:relative;box-shadow:0 20px 60px #0004}.modal-card h2{margin:0 0 8px;font-size:20px}.modal-close{position:absolute;left:14px;top:12px;background:#edf1f7;color:#24364d;font-size:22px;padding:3px 10px}
-
-.empty{text-align:center;color:var(--muted);padding:20px}
-@media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:480px){.form{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:12px}.num{font-size:22px}}
+:root{--navy:#10243b;--blue:#2563eb;--bg:#f3f6fb;--line:#dfe6ef;--muted:#66758a;--green:#087b53;--red:#b42332;--amber:#9a6100}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:#172334}
+header{background:linear-gradient(120deg,#10243b,#24517a);color:white;padding:18px max(16px,calc((100% - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:21px;margin:0 0 6px}header p{margin:0;color:#d9e4ef;font-size:12px}.headright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+main{max-width:1200px;margin:20px auto;padding:0 14px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+button{border:0;border-radius:9px;padding:10px 13px;background:var(--blue);color:#fff;font:inherit;font-size:13px;cursor:pointer}button.secondary{background:#e9efff;color:#244d9b}button.dark{background:var(--navy)}button.danger{background:#fff0f0;color:var(--red)}button:disabled{opacity:.5;cursor:not-allowed}
+.tab.active{background:var(--navy)}.panel{display:none}.panel.active{display:block}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.card,.box{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;box-shadow:0 3px 12px #10243b08}
+.card small,.muted,.help{color:var(--muted)}.num{font-size:27px;font-weight:bold;margin-top:8px}.green{color:var(--green)}.amber{color:var(--amber)}.red{color:var(--red)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box h3{margin:0 0 13px;font-size:16px}
+label{display:block;font-size:13px;color:#526174;margin:9px 0 5px}input,select{width:100%;padding:10px;border:1px solid #d2dce8;border-radius:8px;font:inherit;background:white}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.full{grid-column:1/-1}.toolbar,.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.toolbar input,.toolbar select{max-width:220px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right}th{background:#f6f8fb;color:#526174}
+.badge{display:inline-block;border-radius:20px;padding:4px 8px;background:#e8f7ef;color:#08764f;font-size:11px}.badge.warn{background:#fff3db;color:#8c5b00}.badge.off{background:#eef2f6;color:#526174}
+.status{margin-top:10px;padding:10px;border-radius:9px;background:#eef4ff;color:#294d8c;font-size:13px;line-height:1.7;white-space:pre-wrap}.status.ok{background:#eaf8f1;color:#08764f}.status.err{background:#fff0f0;color:#a52e38}
+.camera{background:#101827;border-radius:12px;overflow:hidden;min-height:210px;display:flex;align-items:center;justify-content:center;position:relative}video{width:100%;max-height:360px;object-fit:cover;transform:scaleX(-1)}.placeholder{color:#cbd5e1;padding:25px;text-align:center;position:absolute}
+.punch{padding:16px;border:2px solid #d9e4f5;background:#f8fbff;border-radius:12px;margin-top:12px;line-height:1.8}.hidden{display:none!important}.login{max-width:450px;margin:40px auto}.help{font-size:12px;line-height:1.8}.right{margin-right:auto}
+@media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:480px){.form{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:12px}.num{font-size:22px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 </head>
 <body>
-<header>
- <div><h1>نظام حضور الموظفين بالتعرّف على الوجه</h1><p>إدارة الموظفين • تسجيل الحضور والانصراف • التقارير</p></div>
- <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="clock"><div id="dateNow"></div><div id="timeNow">--:--:--</div></div><span id="cloudStatus" class="badge late">غير متصل بالسحابة</span><button id="managerBtn" class="dark" onclick="openManager()">🔐 دخول المدير</button></div>
-</header>
+<header><div><h1>نظام حضور وانصراف الموظفين</h1><p>إدارة الموظفين • بصمة الوجه • الموقع • التأخير • التقارير • مزامنة سحابية</p></div>
+<div class="headright"><span id="cloudBadge" class="badge warn">السحابة غير مهيأة</span><span id="clock">--:--</span><button id="logoutBtn" class="dark hidden">تسجيل الخروج</button></div></header>
 <main>
- <div class="tabs">
-  <button class="tab manager-tab" data-tab="dashboard">لوحة التحكم</button>
-  <button class="tab manager-tab" data-tab="employees">الموظفون وتسجيل الوجه</button>
-  <button class="tab active" data-tab="attendance">بصمة الوجه</button>
-  <button class="tab manager-tab" data-tab="reports">التقارير</button>
-  <button class="tab manager-tab" data-tab="settings">الإعدادات والنسخ</button>
- </div>
-
- <section id="dashboard" class="panel">
-  <div class="cards">
-   <div class="card"><small>إجمالي الموظفين النشطين</small><div class="num" id="statEmployees">0</div></div>
-   <div class="card"><small>حضروا اليوم</small><div class="num green" id="statPresent">0</div></div>
-   <div class="card"><small>متأخرون اليوم</small><div class="num amber" id="statLate">0</div></div>
-   <div class="card"><small>لم يسجلوا حضوراً</small><div class="num red" id="statMissing">0</div></div>
-  </div>
-  <div class="box"><h3>آخر عمليات الحضور والانصراف</h3><div class="tablewrap"><table><thead><tr><th>الموظف</th><th>التاريخ</th><th>الوقت</th><th>الحركة</th><th>الموقع</th><th>الصورة</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
- </section>
-
- <section id="employees" class="panel">
-  <div class="grid">
-   <div class="box">
-    <h3>إضافة موظف وتسجيل صورته المرجعية</h3>
-    <div class="form">
-     <div><label>الرقم الوظيفي *</label><input id="empNo" placeholder="مثال: 1001"></div>
-     <div><label>اسم الموظف *</label><input id="empName" placeholder="الاسم الكامل"></div>
-     <div><label>القسم</label><input id="empDept" placeholder="القسم"></div>
-     <div><label>المسمى الوظيفي</label><input id="empRole" placeholder="المسمى"></div>
-    </div>
-    <div class="camera" style="margin-top:12px"><video id="enrollVideo" autoplay muted playsinline></video><div class="camera-placeholder" id="enrollPlaceholder">شغّل الكاميرا لتسجيل الوجه المرجعي</div></div>
-    <canvas id="enrollCanvas"></canvas>
-    <div class="actions"><button onclick="startCamera('enroll')">تشغيل الكاميرا</button><button class="secondary" onclick="captureEnrollment()">التقاط وتسجيل الوجه</button><button class="danger" onclick="stopCamera('enroll')">إيقاف الكاميرا</button></div>
-    <div id="enrollStatus" class="status">حمّل نماذج التعرّف أولاً، ثم شغّل الكاميرا. اجعل الوجه واضحاً وبإضاءة جيدة.</div>
-    <h3 style="margin-top:18px">بديل: التسجيل بالتوقيع</h3>
-    <canvas id="enrollSign" width="600" height="180" style="width:100%;height:140px;border:1px dashed #9aa9bd;border-radius:10px;touch-action:none;background:#fff"></canvas>
-    <div class="actions"><button class="secondary" onclick="clearPad('enrollSign')">مسح التوقيع</button><button onclick="saveEmployeeSignature()">حفظ الموظف بالتوقيع</button></div>
-    <p class="help">يمكن إضافة الموظف بالتوقيع إذا تعذّر تسجيل الوجه. التوقيع صورة إثبات وليس تحققاً حيوياً آلياً من هوية صاحبه.</p>
-    <p class="help">يجب تسجيل صورة مرجعية واضحة لكل موظف بموافقته. يُفضّل التقاط الوجه من الأمام دون كمامة أو نظارات شمسية.</p>
-   </div>
-   <div class="box">
-    <h3>قائمة الموظفين</h3><p class="help">تسجيل بصمة الهاتف متاح من هنا أيضاً. اختر الموظف ثم اضغط زر التسجيل؛ ستظهر نافذة التحقق الرسمية في الهاتف. التسجيل مرتبط بهذا الجهاز والمتصفح.</p>
-    <div class="box" style="background:#f5f8ff;border:1px solid #cbdaf5;margin:10px 0;padding:12px">
-     <strong>📱 تسجيل بصمة الهاتف</strong>
-     <label for="deviceEnrollSelect">اختر الموظف المراد ربط بصمة الهاتف به</label>
-     <select id="deviceEnrollSelect"><option value="">اختر الموظف</option></select>
-     <div class="actions"><button type="button" onclick="enrollSelectedDevice()">📱 تسجيل بصمة الهاتف للموظف المحدد</button></div>
-     <div id="deviceEnrollStatus" class="status" aria-live="polite">اختر الموظف ثم اضغط تسجيل. سيطلب الهاتف بصمة الإصبع أو وسيلة قفل الشاشة.</div>
-    </div>
-    <div class="toolbar"><input id="employeeSearch" placeholder="بحث بالاسم أو الرقم" oninput="renderEmployees()"></div>
-    <div class="tablewrap"><table><thead><tr><th>الصورة</th><th>الرقم</th><th>الاسم</th><th>القسم</th><th>حالة الوجه</th><th>التوقيع</th><th>إجراء</th></tr></thead><tbody id="employeeRows"></tbody></table></div>
-   </div>
-  </div>
- </section>
-
- <section id="attendance" class="panel active">
-  <div class="grid">
-   <div class="box">
-    <h3>التحقق من الوجه وتسجيل الحركة</h3>
-    <div class="camera"><video id="attendanceVideo" autoplay muted playsinline></video><div class="camera-placeholder" id="attendancePlaceholder">شغّل الكاميرا ثم انظر مباشرة إليها</div></div>
-    <canvas id="attendanceCanvas"></canvas>
-    <div class="actions"><button onclick="startCamera('attendance')">تشغيل الكاميرا</button><button class="secondary" onclick="recognizeAndPunch()">تعرّف وتسجيل الحضور/الانصراف</button><button class="danger" onclick="stopCamera('attendance')">إيقاف الكاميرا</button></div>
-    <div id="attendanceStatus" class="status">يبحث النظام عن وجه واحد واضح ويقارنه بالوجوه المسجلة.</div>
-    <div id="punchResult" class="punch-result" aria-live="polite"><strong>بانتظار البصمة</strong><span>عند نجاح التحقق سيظهر اسم الموظف والتاريخ والوقت ومدة التأخير هنا.</span></div><p class="help">يمكن تشغيل النظام من ملف HTML محفوظ على الجهاز. لا يحتاج تسجيل الحضور أو التوقيع إلى إذن الموقع، ولا يتم طلب الموقع أو تتبعه.</p>
-    <div class="box" style="margin-top:14px;border-style:dashed">
-     <h3>تسجيل الحضور أو الانصراف بالتوقيع</h3>
-     <label>اختر اسم الموظف</label><select id="employeeSignSelect"><option value="">اختر الموظف</option></select>
-     <label>وقّع داخل المربع</label>
-     <canvas id="attendanceSign" width="600" height="180" style="display:block;width:100%;height:140px;border:1px dashed #9aa9bd;border-radius:10px;touch-action:none;background:#fff"></canvas>
-     <div class="actions"><button class="secondary" onclick="clearPad('attendanceSign')">مسح التوقيع</button><button onclick="signAttendance()">اعتماد التوقيع وتسجيل الحركة</button></div>
-     <div class="actions"><button class="dark" onclick="deviceFingerprint()">📱 التحقق ببصمة الهاتف وتسجيل الحركة</button></div>
-     <div id="altStatus" class="status">اختر الموظف ثم وقّع أو استخدم بصمة الهاتف إذا سبق للمدير تسجيلها لهذا الموظف.</div>
-     <p class="help">التوقيع يُحفظ كصورة إثبات. بصمة الهاتف تستخدم نافذة التحقق الرسمية في الجهاز (بصمة الإصبع أو الوجه أو رمز قفل الجهاز)، ولا تُرسل صورة البصمة إلى النظام.</p>
-    </div>
-
-   </div>
-   <div class="box">
-    <h3>سجل اليوم</h3><div class="tablewrap"><table><thead><tr><th>الموظف</th><th>الوقت</th><th>الحركة</th><th>مدة التأخير</th><th>الموقع</th><th>الصورة</th></tr></thead><tbody id="todayRows"></tbody></table></div>
-    <p class="help">يتناوب النظام تلقائياً بين الحضور والانصراف بحسب آخر حركة مسجلة للموظف في اليوم نفسه.</p>
-   </div>
-  </div>
- </section>
-
- <section id="reports" class="panel">
-  <div class="box"><h3>تقرير الحضور والانصراف</h3>
-   <div class="toolbar"><label>من</label><input type="date" id="fromDate"><label>إلى</label><input type="date" id="toDate"><select id="reportEmployee"><option value="">كل الموظفين</option></select><button onclick="renderReport()">عرض</button><button class="secondary" onclick="exportCSV()">تصدير CSV</button></div>
-   <div class="tablewrap"><table><thead><tr><th>التاريخ</th><th>الرقم</th><th>الموظف</th><th>أول حضور</th><th>آخر انصراف</th><th>مدة التأخير</th><th>الحالة</th><th>عدد الحركات</th></tr></thead><tbody id="reportRows"></tbody></table></div>
-  </div>
- </section>
-
- <section id="settings" class="panel">
-  <div class="grid">
-   <div class="box"><h3>إعدادات الدوام</h3>
-    <label>بداية الدوام</label><input type="time" id="workStart" value="08:00">
-    <label>نهاية الدوام</label><input type="time" id="workEnd" value="16:00">
-    <label>فترة السماح قبل احتساب التأخير (دقيقة)</label><input type="number" min="0" id="grace" value="10">
-    <div class="actions"><button onclick="saveSettings()">حفظ الإعدادات</button></div>
-    <hr style="border:0;border-top:1px solid #e4eaf2;margin:18px 0">
-    <h3>تغيير كلمة مرور المدير</h3><label>كلمة المرور الحالية</label><input id="currentAdminPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="أدخل الرمز الحالي"><label>كلمة المرور الجديدة (4 إلى 12 رقماً)</label><input id="newAdminPin" type="password" inputmode="numeric" minlength="4" maxlength="12" autocomplete="new-password" placeholder="أدخل الرمز الجديد"><label>تأكيد كلمة المرور الجديدة</label><input id="confirmAdminPin" type="password" inputmode="numeric" minlength="4" maxlength="12" autocomplete="new-password" placeholder="أعد إدخال الرمز الجديد"><div class="actions"><button class="dark" onclick="changeAdminPin()">حفظ كلمة المرور الجديدة</button></div><p class="help">يمكنك تغيير رمز المدير في أي وقت من هذه الصفحة بعد تسجيل الدخول. عند أول تشغيل الرمز الافتراضي 2468.</p>
-   </div>
-   <div class="box"><h3>النسخ الاحتياطي والاستعادة</h3>
-    <p class="help">نزّل نسخة احتياطية بشكل منتظم. تتضمن النسخة بيانات الموظفين وبصمات الوجه الرقمية وسجلات الحضور وصور الإثبات.</p>
-    <div class="actions"><button onclick="backup()">تنزيل نسخة JSON</button></div>
-    <label>استعادة نسخة احتياطية</label><input type="file" id="restoreFile" accept=".json,application/json">
-    <div class="actions"><button class="secondary" onclick="restoreBackup()">استعادة البيانات</button><button class="danger" onclick="clearAll()">حذف كل البيانات</button></div>
-   </div>
-  </div>
-  <div class="status">الخصوصية والأمان: تُحفظ البيانات والصور محلياً في مساحة المتصفح على هذا الجهاز. لا تستخدم هذه النسخة لاتخاذ قرارات عقابية آلية؛ تحقّق بشرياً من الحالات غير الواضحة. احصل على موافقة الموظفين واحمِ الجهاز والنسخ الاحتياطية.</div>
- </section>
- <p class="help" style="text-align:center;margin:18px 0">نسخة HTML محلية — لا تتصل بقاعدة بيانات مركزية. التعرّف على الوجه يحتاج تحميل النماذج عبر الإنترنت. بصمة الهاتف تعتمد على WebAuthn؛ قد لا تعمل عند فتح الملف مباشرة، وقد تتطلب تشغيل الصفحة عبر localhost أو HTTPS. بيانات الاعتماد المحلية ليست تحققاً خادمياً كاملاً.</p>
-</main>
-
-
-<div id="managerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="managerTitle">
- <div class="modal-card"><button class="modal-close" onclick="closeManager()" aria-label="إغلاق">×</button><h2 id="managerTitle">🔐 دخول المدير عبر Supabase</h2><p class="help">سجّل الدخول بالبريد وكلمة مرور حسابك في المشروع. لا تضع كلمة المرور داخل الكود.</p><label for="authEmail">البريد الإلكتروني</label><input id="authEmail" type="email" autocomplete="username" value="ma776648016@gmail.com"><label for="authPassword">كلمة مرور الحساب</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="كلمة مرور Supabase" onkeydown="if(event.key==='Enter')managerLogin()"><div class="actions"><button onclick="managerLogin()">دخول ومزامنة</button><button class="secondary" onclick="closeManager()">إلغاء</button></div><div id="managerLoginStatus" class="status" style="display:none"></div><p class="help">يتم التحقق من صلاحية manager في public.profiles؛ رمز المدير المحلي لم يعد مستخدماً.</p></div>
+<section id="setupNotice" class="box">
+<h3>إعداد الاتصال السحابي أول مرة</h3>
+<p class="help">أدخل رابط مشروع Supabase ومفتاح anon/public فقط. لا تضع Service Role Key هنا مطلقاً. أنشئ الجداول من ملف schema.sql أولاً، ثم أنشئ حساب المدير من Supabase Authentication.</p>
+<div class="form"><div><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxx.supabase.co"></div><div><label>Anon / Publishable key</label><input id="sbKey" placeholder="eyJ... أو sb_publishable_..."></div></div>
+<div class="actions"><button id="connectBtn">حفظ الاتصال والاتصال بالسحابة</button><button id="forgetConfig" class="secondary">مسح الإعدادات من هذا الجهاز</button></div>
+<div id="setupStatus" class="status">لن تعمل المزامنة حتى تنشئ مشروع Supabase وتنفذ ملف SQL المرفق.</div>
+</section>
+<section id="loginPanel" class="box login hidden">
+<h3>دخول المدير</h3><label>البريد الإلكتروني</label><input id="email" type="email" autocomplete="username">
+<label>كلمة المرور</label><input id="password" type="password" autocomplete="current-password">
+<div class="actions"><button id="loginBtn">تسجيل الدخول</button></div><div id="loginStatus" class="status">استخدم حساب المدير الذي أنشأته في Supabase Auth.</div>
+</section>
+<div id="app" class="hidden">
+<nav class="tabs">
+<button class="tab active" data-tab="dashboard">لوحة التحكم</button><button class="tab" data-tab="attendance">بصمة الوجه والحضور</button><button class="tab" data-tab="employees">إدارة الموظفين</button><button class="tab" data-tab="reports">التقارير</button><button class="tab" data-tab="settings">الإعدادات</button>
+</nav>
+<section id="dashboard" class="panel active">
+<div class="cards">
+<div class="card"><small>الموظفون النشطون</small><div class="num" id="nEmployees">0</div></div>
+<div class="card"><small>حضور اليوم</small><div class="num green" id="nPresent">0</div></div>
+<div class="card"><small>المتأخرون اليوم</small><div class="num amber" id="nLate">0</div></div>
+<div class="card"><small>لم يسجلوا حضوراً</small><div class="num red" id="nAbsent">0</div></div>
+</div><div class="box"><h3>آخر الحركات</h3><div class="tablewrap"><table><thead><tr><th>الموظف</th><th>التاريخ والوقت</th><th>النوع</th><th>التأخير</th><th>الموقع</th><th>طريقة التحقق</th></tr></thead><tbody id="recent"></tbody></table></div></div>
+</section>
+<section id="attendance" class="panel">
+<div class="grid"><div class="box"><h3>تسجيل الحضور أو الانصراف بالتعرف على الوجه</h3>
+<div class="camera"><video id="cam" autoplay muted playsinline></video><span id="camPlaceholder" class="placeholder">اضغط تشغيل الكاميرا</span></div>
+<div class="actions"><button id="startCam">تشغيل الكاميرا</button><button id="punchFace" class="secondary" disabled>التعرف وتسجيل الحركة</button><button id="stopCam" class="danger">إيقاف</button></div>
+<div id="faceStatus" class="status">يجب تسجيل صور الموظفين أولاً، والسماح للمتصفح باستخدام الكاميرا.</div>
+<div class="punch" id="punchResult">بانتظار عملية حضور أو انصراف.</div>
+<p class="help">التعرف يتم محلياً في المتصفح باستخدام نموذج face-api.js، ثم تُرسل نتيجة المطابقة وسجل الحركة إلى السحابة. لا تُرسل صورة الكاميرا الحية.</p>
 </div>
-<div id="signatureModal" class="modal" role="dialog" aria-modal="true"><div class="modal-card"><button class="modal-close" onclick="closeSignature()" aria-label="إغلاق">×</button><h2 id="signatureTitle">توقيع الموظف</h2><img id="signatureLarge" alt="توقيع الموظف" style="display:block;width:100%;max-height:260px;object-fit:contain;border:1px solid #e4eaf2;border-radius:10px;background:#fff"><div class="actions"><button class="secondary" onclick="closeSignature()">إغلاق</button></div></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-<script>
-'use strict';
-const DBKEY='face_attendance_v1';
-const SUPABASE_URL='https://jtpyvkcgqdowfxfafrlp.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_KzGI9_85XudFHVD3enI3AQ_pBjDL1jd';
-const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-let managerUnlocked=false, cloudSyncBusy=false, cloudSyncTimer=null;
-function cloudBadge(message,ok=false){const el=$('cloudStatus');if(el){el.textContent=message;el.className='badge '+(ok?'':'late')}}
-function openManager(){$('managerModal').classList.add('open');$('authPassword').value='';$('managerLoginStatus').style.display='none';setTimeout(()=>$('authPassword').focus(),100)}
-function closeManager(){$('managerModal').classList.remove('open')}
-async function managerLogin(){
- const email=$('authEmail').value.trim(),password=$('authPassword').value;
- if(!email||!password){$('managerLoginStatus').style.display='block';setStatus('managerLoginStatus','أدخل البريد وكلمة المرور.','err');return}
- setStatus('managerLoginStatus','جارٍ التحقق من الحساب والاتصال بقاعدة البيانات...');$('managerLoginStatus').style.display='block';
- try{
-  const {data,error}=await supabase.auth.signInWithPassword({email,password});if(error)throw error;
-  const {data:profile,error:pe}=await supabase.from('profiles').select('role,display_name').eq('id',data.user.id).single();if(pe)throw pe;
-  if(profile.role!=='manager'){await supabase.auth.signOut();throw Error('هذا الحساب ليس مديراً. يجب أن تكون role = manager في public.profiles.')}
-  managerUnlocked=true;document.body.classList.add('manager-on');$('managerBtn').textContent='🔓 خروج المدير';$('managerBtn').onclick=managerLogout;
-  await pushCloudData();await pullCloudData();closeManager();switchTab('dashboard');cloudBadge('متصل بالسحابة',true);alert('تم الاتصال بنجاح ومزامنة بيانات المشروع.');
- }catch(e){setStatus('managerLoginStatus','تعذر الدخول: '+(e.message||'تحقق من البريد وكلمة المرور وإعدادات Supabase.'),'err')}
-}
-async function managerLogout(){await supabase.auth.signOut();managerUnlocked=false;document.body.classList.remove('manager-on');$('managerBtn').textContent='🔐 دخول المدير';$('managerBtn').onclick=openManager;cloudBadge('تم تسجيل الخروج');switchTab('attendance')}
-async function pullCloudData(){
- const [{data:es,error:ee},{data:ls,error:le},{data:ss,error:se}]=await Promise.all([
-  supabase.from('employees').select('*').order('created_at'),
-  supabase.from('attendance_events').select('*').order('occurred_at'),
-  supabase.from('attendance_settings').select('*').eq('id',1).maybeSingle()
- ]);
- if(ee)throw ee;if(le)throw le;if(se)throw se;
- db.employees=(es||[]).map(e=>({id:e.id,no:e.employee_no,name:e.full_name,dept:e.department||'',role:e.job_title||'',active:e.active,descriptor:e.face_descriptor||null,photo:e.face_photo||null,signature:e.signature_data||null,createdAt:e.created_at,authUserId:e.auth_user_id}));
- db.logs=(ls||[]).map(x=>{const d=new Date(x.occurred_at),emp=db.employees.find(e=>e.id===x.employee_id);return {id:x.id,empId:x.employee_id,no:emp?.no||'',name:emp?.name||'',date:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),time:d.toLocaleTimeString('en-GB',{hour12:false}),kind:x.event_type==='check_in'?'حضور':'انصراف',method:x.method==='face'?'التعرف على الوجه':x.method==='device_biometric'?'بصمة الهاتف':'توقيع',photo:x.evidence_photo||null,verified:true}});
- if(ss)db.settings={start:String(ss.work_start).slice(0,5),end:String(ss.work_end).slice(0,5),grace:ss.grace_minutes};
- localStorage.setItem(DBKEY,JSON.stringify(db));refresh();
-}
-async function pushCloudData(){
- if(!managerUnlocked||cloudSyncBusy)return;cloudSyncBusy=true;
- try{
-  const employees=db.employees.map(e=>({id:e.id,employee_no:e.no,full_name:e.name,department:e.dept||'',job_title:e.role||'',active:e.active!==false,face_descriptor:e.descriptor||null,face_photo:e.photo||null,signature_data:e.signature||null,auth_user_id:e.authUserId||null}));
-  if(employees.length){const {error}=await supabase.from('employees').upsert(employees,{onConflict:'id'});if(error)throw error}
-  const events=db.logs.map(x=>({id:x.id,employee_id:x.empId,event_type:x.kind==='حضور'?'check_in':'check_out',occurred_at:new Date(x.date+'T'+x.time).toISOString(),method:String(x.method||'').includes('وجه')?'face':String(x.method||'').includes('هاتف')?'device_biometric':'signature',evidence_photo:x.photo||null,note:x.method||null}));
-  if(events.length){const {error}=await supabase.from('attendance_events').upsert(events,{onConflict:'id'});if(error)throw error}
-  const {error:se}=await supabase.from('attendance_settings').upsert({id:1,work_start:db.settings.start,work_end:db.settings.end,grace_minutes:Number(db.settings.grace)||0});if(se)throw se;
-  cloudBadge('تمت المزامنة',true);
- }catch(e){cloudBadge('فشلت المزامنة');console.error('Supabase sync error:',e);}
- finally{cloudSyncBusy=false}
-}
-function switchTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));refresh()}
-function requireManager(){if(!managerUnlocked){alert('هذه الخاصية متاحة لمدير النظام فقط.');return false}return true}
-function changeAdminPin(){if(!requireManager())return;let current=$('currentAdminPin').value.trim(),pin=$('newAdminPin').value.trim(),confirmPin=$('confirmAdminPin').value.trim();if(current!==getManagerPin()){alert('كلمة المرور الحالية غير صحيحة.');return}if(!/^\d{4,12}$/.test(pin)){alert('يجب أن يتكون الرمز الجديد من 4 إلى 12 رقماً.');return}if(pin!==confirmPin){alert('تأكيد كلمة المرور غير مطابق.');return}if(pin===current){alert('اختر كلمة مرور مختلفة عن الحالية.');return}localStorage.setItem(PINKEY,pin);$('currentAdminPin').value='';$('newAdminPin').value='';$('confirmAdminPin').value='';alert('تم تغيير كلمة مرور المدير بنجاح. استخدم الرمز الجديد في المرة القادمة.')}
-
-let db=loadDB(), modelsReady=false, streams={enroll:null,attendance:null}, reportCache=[];
-const $=id=>document.getElementById(id);
-function loadDB(){try{return JSON.parse(localStorage.getItem(DBKEY))||{employees:[],logs:[],settings:{start:'08:00',end:'16:00',grace:10}}}catch(e){return {employees:[],logs:[],settings:{start:'08:00',end:'16:00',grace:10}}}}
-function saveDB(){try{localStorage.setItem(DBKEY,JSON.stringify(db));if(managerUnlocked){clearTimeout(cloudSyncTimer);cloudSyncTimer=setTimeout(pushCloudData,350)}return true}catch(e){alert('مساحة التخزين ممتلئة. صدّر نسخة احتياطية واحذف بعض الصور القديمة.');return false}}
-function today(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function nowTime(){return new Date().toLocaleTimeString('en-GB',{hour12:false})}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function setStatus(id,msg,type=''){let el=$(id);if(el){el.textContent=msg;el.className='status '+type}}
-function showPunch(emp,kind,date,time,method,location){let box=$('punchResult');box.classList.add('success');let loc=location?.latitude!=null?`<span>الموقع: ${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)} (دقة تقريبية ${Math.round(location.accuracy||0)} م) — <a href="https://www.google.com/maps?q=${location.latitude},${location.longitude}" target="_blank" rel="noopener">عرض على الخريطة</a></span>`:`<span>الموقع: غير مستخدم (ميزة الموقع غير مفعّلة في هذا النظام)</span>`;let late=kind==='حضور'?getLateInfo(time):null;let lateHtml=late?`<span>مدة التأخير عن بداية الدوام (${esc(db.settings.start)}): <b>${esc(formatDuration(late.lateMinutes))}</b></span><span>التأخير بعد فترة السماح (${Number(db.settings.grace)||0} دقيقة): <b>${esc(formatDuration(late.afterGraceMinutes))}</b></span><span>الحالة: <b>${late.isLate?'متأخر':'ضمن الوقت / فترة السماح'}</b></span>`:'';box.innerHTML=`<strong>✓ تم تسجيل ${esc(kind)} بنجاح</strong><span>الموظف: ${esc(emp.name)} (${esc(emp.no)})</span><span>التاريخ: ${esc(date)}</span><span>الوقت: ${esc(time)}</span>${lateHtml}<span>طريقة التحقق: ${esc(method||'التعرف على الوجه')}</span>${loc}`;box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function tick(){let d=new Date();$('dateNow').textContent=d.toLocaleDateString('ar',{weekday:'long',year:'numeric',month:'long',day:'numeric'});$('timeNow').textContent=d.toLocaleTimeString('ar')}
-setInterval(tick,1000);tick();
-document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab!=='attendance'&&!requireManager())return;switchTab(b.dataset.tab)}));
-async function loadModels(){
- if(!window.faceapi){setStatus('enrollStatus','تعذر تحميل مكتبة التعرف على الوجه. تحقق من اتصال الإنترنت ثم أعد فتح الصفحة.','err');return}
- try{
-  setStatus('enrollStatus','جارٍ تحميل نماذج التعرف على الوجه...');setStatus('attendanceStatus','جارٍ تحميل نماذج التعرف على الوجه...');
-  const u='https://justadudewhohacks.github.io/face-api.js/models';
-  await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(u),faceapi.nets.faceLandmark68Net.loadFromUri(u),faceapi.nets.faceRecognitionNet.loadFromUri(u)]);
-  modelsReady=true;setStatus('enrollStatus','النماذج جاهزة. شغّل الكاميرا لتسجيل صور الموظفين.','ok');setStatus('attendanceStatus','النماذج جاهزة. شغّل الكاميرا للتحقق من الوجه.','ok');
- }catch(e){setStatus('enrollStatus','فشل تحميل نماذج الوجه. تأكد من الإنترنت ثم حدّث الصفحة. '+e.message,'err');setStatus('attendanceStatus','فشل تحميل نماذج الوجه. تأكد من الإنترنت ثم حدّث الصفحة.','err')}
-}
-async function startCamera(which){
- if(!navigator.mediaDevices?.getUserMedia){setStatus(which==='enroll'?'enrollStatus':'attendanceStatus','المتصفح لا يدعم تشغيل الكاميرا هنا. افتح الملف من Chrome عبر HTTPS أو localhost واسمح باستخدام الكاميرا.','err');return}
- try{
-  stopCamera(which);let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});streams[which]=stream;
-  let v=$(which==='enroll'?'enrollVideo':'attendanceVideo');v.srcObject=stream;v.style.display='block';
-  $(which==='enroll'?'enrollPlaceholder':'attendancePlaceholder').style.display='none';
-  await v.play();setStatus(which==='enroll'?'enrollStatus':'attendanceStatus','الكاميرا تعمل. اجعل الوجه في منتصف الصورة وبإضاءة جيدة.','ok');
- }catch(e){setStatus(which==='enroll'?'enrollStatus':'attendanceStatus','لم نتمكن من تشغيل الكاميرا: '+e.message+'. تحقق من إذن الكاميرا وافتح الملف في Chrome واسمح بالكاميرا. إذا منع Chrome الكاميرا من الملف المحلي فستحتاج إلى localhost أو HTTPS.','err')}
-}
-function stopCamera(which){if(streams[which]){streams[which].getTracks().forEach(t=>t.stop());streams[which]=null}let v=$(which==='enroll'?'enrollVideo':'attendanceVideo');if(v){v.srcObject=null;v.style.display='none'}let p=$(which==='enroll'?'enrollPlaceholder':'attendancePlaceholder');if(p)p.style.display='block'}
-async function detect(video){if(!modelsReady)throw Error('نماذج الوجه لم تجهز بعد');if(!video.videoWidth)throw Error('انتظر حتى تظهر صورة الكاميرا');let opts=new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.5});let detections=await faceapi.detectAllFaces(video,opts).withFaceLandmarks().withFaceDescriptors();if(detections.length!==1)throw Error(detections.length===0?'لم يتم العثور على وجه. اقترب من الكاميرا وحسّن الإضاءة.':'يجب ظهور وجه واحد فقط أمام الكاميرا.');return detections[0]}
-function snapshot(video,canvas){canvas.width=video.videoWidth;canvas.height=video.videoHeight;let ctx=canvas.getContext('2d');ctx.save();ctx.translate(canvas.width,0);ctx.scale(-1,1);ctx.drawImage(video,0,0);ctx.restore();return canvas.toDataURL('image/jpeg',.72)}
-async function captureEnrollment(){
- if(!requireManager())return;
- try{
-  if(!$('empNo').value.trim()||!$('empName').value.trim())throw Error('أدخل الرقم الوظيفي واسم الموظف أولاً');
-  let det=await detect($('enrollVideo'));let no=$('empNo').value.trim();
-  if(db.employees.some(e=>e.no===no))throw Error('الرقم الوظيفي موجود مسبقاً');
-  let photo=snapshot($('enrollVideo'),$('enrollCanvas'));
-  db.employees.push({id:crypto.randomUUID(),no,name:$('empName').value.trim(),dept:$('empDept').value.trim(),role:$('empRole').value.trim(),descriptor:Array.from(det.descriptor),photo,active:true,createdAt:new Date().toISOString()});
-  if(saveDB()){$('empNo').value='';$('empName').value='';$('empDept').value='';$('empRole').value='';setStatus('enrollStatus','تم تسجيل الموظف وصورته المرجعية بنجاح.','ok');refresh()}
- }catch(e){setStatus('enrollStatus',e.message,'err')}
-}
-async function recognizeAndPunch(){
- try{
-  let det=await detect($('attendanceVideo'));if(!db.employees.length)throw Error('لا يوجد موظفون مسجلون بعد');
-  let ranked=db.employees.filter(e=>e.active&&e.descriptor?.length).map(e=>({e,d:faceapi.euclideanDistance(det.descriptor,new Float32Array(e.descriptor))})).sort((a,b)=>a.d-b.d);
-  if(!ranked.length)throw Error('لا توجد وجوه مرجعية مسجلة');
-  let best=ranked[0];if(best.d>.52)throw Error('لم يتم التحقق من الهوية بثقة كافية. أعد المحاولة أو اطلب مراجعة المسؤول.');
-  let date=today(),last=db.logs.filter(x=>x.empId===best.e.id&&x.date===date).sort((a,b)=>b.time.localeCompare(a.time))[0];
-  let kind=last?.kind==='حضور'?'انصراف':'حضور',photo=snapshot($('attendanceVideo'),$('attendanceCanvas'));
-  let stamp=nowTime(),lateInfo=kind==='حضور'?getLateInfo(stamp):null;db.logs.push({id:crypto.randomUUID(),empId:best.e.id,no:best.e.no,name:best.e.name,date,time:stamp,kind,photo,location:null,distance:Number(best.d.toFixed(3)),verified:true,method:'التعرف على الوجه',lateMinutes:lateInfo?.lateMinutes??0,afterGraceMinutes:lateInfo?.afterGraceMinutes??0});
-  if(saveDB()){setStatus('attendanceStatus',`تم التعرّف على ${best.e.name} وتسجيل ${kind}.`,'ok');showPunch(best.e,kind,date,stamp,'التعرف على الوجه',null);refresh()}
- }catch(e){setStatus('attendanceStatus',e.message,'err')}
-}
-
-// لوحة توقيع تعمل باللمس أو الفأرة
-const padState={};
-function setupPad(id){
- const c=$(id);if(!c||padState[id])return;const ctx=c.getContext('2d');ctx.lineWidth=3;ctx.lineCap='round';ctx.strokeStyle='#14243a';let drawing=false;
- function pos(ev){let r=c.getBoundingClientRect(),pt=ev.touches?ev.touches[0]:ev;return {x:(pt.clientX-r.left)*c.width/r.width,y:(pt.clientY-r.top)*c.height/r.height}}
- function start(ev){drawing=true;let q=pos(ev);ctx.beginPath();ctx.moveTo(q.x,q.y);ev.preventDefault()}
- function move(ev){if(!drawing)return;let q=pos(ev);ctx.lineTo(q.x,q.y);ctx.stroke();ev.preventDefault()}
- function end(){drawing=false}
- c.addEventListener('pointerdown',start);c.addEventListener('pointermove',move);window.addEventListener('pointerup',end);padState[id]={ctx,c};
-}
-function clearPad(id){setupPad(id);let x=padState[id];x.ctx.clearRect(0,0,x.c.width,x.c.height)}
-function padHasInk(id){let d=padState[id].ctx.getImageData(0,0,padState[id].c.width,padState[id].c.height).data;for(let i=3;i<d.length;i+=4)if(d[i]>0)return true;return false}
-function saveEmployeeSignature(){
- if(!requireManager())return;
- try{
-  let no=$('empNo').value.trim(),name=$('empName').value.trim();if(!no||!name)throw Error('أدخل الرقم الوظيفي والاسم أولاً');
-  if(db.employees.some(e=>e.no===no))throw Error('الرقم الوظيفي موجود مسبقاً');
-  setupPad('enrollSign');if(!padHasInk('enrollSign'))throw Error('وقّع داخل المربع أولاً');
-  let photo=padState.enrollSign.c.toDataURL('image/png');
-  db.employees.push({id:crypto.randomUUID(),no,name,dept:$('empDept').value.trim(),role:$('empRole').value.trim(),signature:photo,descriptor:null,photo:null,active:true,createdAt:new Date().toISOString()});
-  if(saveDB()){$('empNo').value='';$('empName').value='';$('empDept').value='';$('empRole').value='';clearPad('enrollSign');refresh();setStatus('enrollStatus','تم حفظ الموظف بالتوقيع.','ok')}
- }catch(e){setStatus('enrollStatus',e.message,'err')}
-}
-async function enrollDevice(id){
- if(!requireManager())return;
- try{
-  if(!window.PublicKeyCredential||!navigator.credentials)throw Error('هذا المتصفح لا يدعم تسجيل بصمة الهاتف (WebAuthn). حدّث Chrome أو استخدم متصفحاً مدعوماً.');
-  if(!window.isSecureContext)throw Error('المتصفح لا يسمح ببصمة الهاتف من هذا السياق. يلزم فتح النظام عبر HTTPS أو localhost؛ ملف HTML المفتوح مباشرة قد لا يدعمها.');
-  if(PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable && !(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()))throw Error('لم يتم العثور على وسيلة تحقق مدمجة في الجهاز. تأكد من إعداد بصمة الإصبع أو قفل الشاشة أولاً.');
-  let emp=db.employees.find(e=>e.id===id);if(!emp)throw Error('الموظف غير موجود');
-  let challenge=crypto.getRandomValues(new Uint8Array(32));
-  let cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'نظام حضور الموظفين'},user:{id:new TextEncoder().encode(emp.id),name:emp.no,displayName:emp.name},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'discouraged'},timeout:60000,attestation:'none'}});
-  if(!cred)throw Error('لم يكتمل تسجيل وسيلة التحقق');
-  emp.webAuthnId=Array.from(new Uint8Array(cred.rawId));emp.webAuthnRegisteredAt=new Date().toISOString();
-  if(!saveDB())throw Error('تعذر حفظ تسجيل البصمة في هذا الجهاز');
-  refresh();setStatus('enrollStatus','تم ربط بصمة/قفل هذا الجهاز بالموظف '+emp.name+'. يمكنه الآن اختيار اسمه في صفحة الحضور واستخدام بصمة الهاتف.','ok');
- }catch(e){setStatus('enrollStatus',(e.name==='NotAllowedError'?'ألغيت العملية أو انتهت مهلة التحقق. ': '')+(e.message||'تعذر تسجيل بصمة الهاتف.'),'err')}
-}
-async function deviceFingerprint(){
- try{
-  if(!window.PublicKeyCredential||!navigator.credentials)throw Error('هذا المتصفح لا يدعم بصمة الهاتف عبر WebAuthn.');
-  if(!window.isSecureContext)throw Error('بصمة الهاتف لا تعمل من ملف HTML المفتوح مباشرة في هذا المتصفح. يلزم HTTPS أو localhost.');
-  let id=$('employeeSignSelect').value;if(!id)throw Error('اختر اسم الموظف أولاً');
-  let emp=db.employees.find(e=>e.id===id&&e.active);if(!emp)throw Error('الموظف غير موجود أو غير نشط');
-  if(!emp.webAuthnId)throw Error('لم يسجل المدير بصمة الهاتف لهذا الموظف بعد. اطلب من المدير تسجيلها من قائمة الموظفين.');
-  if(PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable && !(await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()))throw Error('لا توجد وسيلة تحقق مدمجة متاحة. أعد إعداد بصمة الهاتف أو قفل الشاشة.');
-  let rawId=new Uint8Array(emp.webAuthnId);
-  let assertion=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:rawId}],userVerification:'required',timeout:60000}});
-  if(!assertion)throw Error('لم يكتمل التحقق ببصمة الهاتف');
-  await recordAttendance(emp,'بصمة الهاتف / تحقق الجهاز',null);
-  setStatus('altStatus','نجح تحقق الجهاز للموظف '+emp.name+' وتم تسجيل الحركة.','ok');
- }catch(e){setStatus('altStatus',(e.name==='NotAllowedError'?'لم تتم المصادقة أو ألغيت نافذة البصمة. ': '')+(e.message||'تعذر التحقق ببصمة الهاتف.'),'err')}
-}
-async function signAttendance(){
- try{
-  let id=$('employeeSignSelect').value;if(!id)throw Error('اختر اسم الموظف أولاً');
-  setupPad('attendanceSign');if(!padHasInk('attendanceSign'))throw Error('أدخل التوقيع أولاً');
-  let emp=db.employees.find(e=>e.id===id),photo=padState.attendanceSign.c.toDataURL('image/png');
-  await recordAttendance(emp,'توقيع',photo,null);clearPad('attendanceSign');setStatus('altStatus','تم اعتماد التوقيع وتسجيل الحركة للموظف '+emp.name+'.','ok');
- }catch(e){setStatus('altStatus',e.message,'err')}
-}
-async function recordAttendance(emp,method,photo,location=null){
- let date=today(),last=db.logs.filter(x=>x.empId===emp.id&&x.date===date).sort((a,b)=>b.time.localeCompare(a.time))[0];
- let kind=last?.kind==='حضور'?'انصراف':'حضور';
- let stamp=nowTime(),lateInfo=kind==='حضور'?getLateInfo(stamp):null;db.logs.push({id:crypto.randomUUID(),empId:emp.id,no:emp.no,name:emp.name,date,time:stamp,kind,photo,location,verified:true,method,lateMinutes:lateInfo?.lateMinutes??0,afterGraceMinutes:lateInfo?.afterGraceMinutes??0});
- if(saveDB()){showPunch(emp,kind,date,stamp,method,location);refresh()}
-}
-function renderEmployees(){
- let q=$('employeeSearch').value.toLowerCase();
- const selected=$('deviceEnrollSelect')?.value||'';
- if($('deviceEnrollSelect')) $('deviceEnrollSelect').innerHTML='<option value="">اختر الموظف</option>'+db.employees.filter(e=>e.active).map(e=>`<option value="${e.id}">${esc(e.no)} - ${esc(e.name)}${e.webAuthnId?' — البصمة مسجلة':''}</option>`).join('');
- if($('deviceEnrollSelect')&&db.employees.some(e=>e.id===selected&&e.active)) $('deviceEnrollSelect').value=selected;
- $('employeeRows').innerHTML=db.employees.filter(e=>(e.name+' '+e.no+' '+e.dept).toLowerCase().includes(q)).map(e=>`<tr><td>${e.photo?`<img class="preview" src="${e.photo}">`:''}</td><td>${esc(e.no)}</td><td>${esc(e.name)}</td><td>${esc(e.dept)}</td><td>${e.descriptor?'الوجه مسجل':'الوجه غير مسجل'}<br><small>${e.webAuthnId?'بصمة الهاتف مسجلة':'بصمة الهاتف غير مسجلة'}</small></td><td>${e.signature?`<img class="signature-preview" src="${e.signature}" alt="توقيع ${esc(e.name)}" title="اضغط لعرض التوقيع" onclick="showEmployeeSignature('${e.id}')"> <button class="secondary" onclick="showEmployeeSignature('${e.id}')">عرض</button>`:'<span class="muted">لا يوجد توقيع</span>'}</td><td><button class="secondary" onclick="enrollDevice('${e.id}')">تسجيل بصمة الهاتف</button> <button class="secondary" onclick="toggleEmployee('${e.id}')">${e.active?'إيقاف':'تفعيل'}</button> <button class="danger" onclick="deleteEmployee('${e.id}')">حذف</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">لا يوجد موظفون</td></tr>'
-}
-async function enrollSelectedDevice(){
- if(!requireManager())return;
- const id=$('deviceEnrollSelect').value;
- if(!id){setStatus('deviceEnrollStatus','اختر موظفاً من القائمة أولاً.','err');return;}
- setStatus('deviceEnrollStatus','جارٍ بدء تسجيل وسيلة التحقق في الهاتف...');
- await enrollDevice(id);
- const emp=db.employees.find(e=>e.id===id);
- if(emp?.webAuthnId)setStatus('deviceEnrollStatus','تم تسجيل بصمة/قفل الهاتف للموظف '+emp.name+' بنجاح.','ok');
- else {const old=$('enrollStatus')?.textContent||'لم يكتمل التسجيل.';setStatus('deviceEnrollStatus',old,'err');}
-}
-
-function showEmployeeSignature(id){if(!requireManager())return;let emp=db.employees.find(e=>e.id===id);if(!emp?.signature){alert('لا يوجد توقيع محفوظ لهذا الموظف.');return}$('signatureTitle').textContent='توقيع الموظف: '+emp.name+' ('+emp.no+')';$('signatureLarge').src=emp.signature;$('signatureModal').classList.add('open')}
-function closeSignature(){$('signatureModal').classList.remove('open');$('signatureLarge').removeAttribute('src')}
-function toggleEmployee(id){
- if(!requireManager())return;let e=db.employees.find(x=>x.id===id);e.active=!e.active;saveDB();refresh()}
-function deleteEmployee(id){if(confirm('حذف الموظف وسجلاته وصوره؟ لا يمكن التراجع عن ذلك.')){
- if(!requireManager())return;db.employees=db.employees.filter(e=>e.id!==id);db.logs=db.logs.filter(x=>x.empId!==id);saveDB();refresh()}}
-function renderToday(){
- let a=db.logs.filter(x=>x.date===today()).sort((x,y)=>y.time.localeCompare(x.time));
- $('todayRows').innerHTML=a.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.time}</td><td>${x.kind}</td><td>${x.kind==='حضور'?esc(getLateInfo(x.time).label):'—'}</td><td>${x.location?.latitude!=null?`<a href="https://www.google.com/maps?q=${x.location.latitude},${x.location.longitude}" target="_blank" rel="noopener">عرض الموقع</a>`:esc(x.location?.error||'غير متاح')}</td><td>${x.photo?`<a href="${x.photo}" target="_blank">عرض الصورة</a>`:'—'}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد حركات اليوم</td></tr>';
- $('recentRows').innerHTML=db.logs.slice().sort((x,y)=>(y.date+y.time).localeCompare(x.date+x.time)).slice(0,8).map(x=>`<tr><td>${esc(x.name)}</td><td>${x.date}</td><td>${x.time}</td><td>${x.kind}</td><td>${x.location?.latitude!=null?`<a href="https://www.google.com/maps?q=${x.location.latitude},${x.location.longitude}" target="_blank" rel="noopener">عرض الموقع</a>`:esc(x.location?.error||'غير متاح')}</td><td>${x.photo?`<a href="${x.photo}" target="_blank">عرض</a>`:'—'}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد حركات</td></tr>'
-}
-function addMinutes(t,n){let [h,m]=t.split(':').map(Number),v=h*60+m+n;return String(Math.floor(v/60)%24).padStart(2,'0')+':'+String(v%60).padStart(2,'0')}
-function minutesOf(t){let [h,m]=String(t||'00:00').slice(0,5).split(':').map(Number);return h*60+m}
-function getLateInfo(time){let actual=Math.max(0,minutesOf(time)-minutesOf(db.settings.start||'08:00'));let grace=Math.max(0,Number(db.settings.grace)||0);let afterGrace=Math.max(0,actual-grace);return {lateMinutes:actual,afterGraceMinutes:afterGrace,isLate:afterGrace>0,label:actual?formatDuration(actual)+(afterGrace?` (بعد السماح ${formatDuration(afterGrace)})`:' (ضمن فترة السماح)'):'في الموعد'}}
-function formatDuration(mins){mins=Math.max(0,Number(mins)||0);let h=Math.floor(mins/60),m=mins%60;return h?`${h} ساعة و${m} دقيقة`:`${m} دقيقة`}
-function renderDashboard(){
- let active=db.employees.filter(e=>e.active),logs=db.logs.filter(x=>x.date===today()),present=active.filter(e=>logs.some(x=>x.empId===e.id&&x.kind==='حضور'));
- let late=present.filter(e=>{let x=logs.filter(l=>l.empId===e.id&&l.kind==='حضور').sort((a,b)=>a.time.localeCompare(b.time))[0];return x&&getLateInfo(x.time).isLate});
- $('statEmployees').textContent=active.length;$('statPresent').textContent=present.length;$('statLate').textContent=late.length;$('statMissing').textContent=Math.max(0,active.length-present.length)
-}
-function fillReportEmployees(){$('employeeSignSelect').innerHTML='<option value="">اختر الموظف</option>'+db.employees.filter(e=>e.active).map(e=>`<option value="${e.id}">${esc(e.no)} - ${esc(e.name)}</option>`).join('');$('reportEmployee').innerHTML='<option value="">كل الموظفين</option>'+db.employees.map(e=>`<option value="${e.id}">${esc(e.no)} - ${esc(e.name)}</option>`).join('')}
-function renderReport(){
- if(!requireManager())return;
- let from=$('fromDate').value||today(),to=$('toDate').value||today(),id=$('reportEmployee').value,rows=[];
- db.logs.filter(x=>x.date>=from&&x.date<=to&&(!id||x.empId===id)).forEach(x=>{let key=x.date+'|'+x.empId;let r=rows.find(y=>y.key===key);if(!r){r={key,date:x.date,e:db.employees.find(e=>e.id===x.empId)||{no:x.no,name:x.name},logs:[]};rows.push(r)}r.logs.push(x)});
- reportCache=rows.map(r=>{let ins=r.logs.filter(x=>x.kind==='حضور').sort((a,b)=>a.time.localeCompare(b.time)),outs=r.logs.filter(x=>x.kind==='انصراف').sort((a,b)=>a.time.localeCompare(b.time));let first=ins[0]?.time||'—',li=first!=='—'?getLateInfo(first):null;return {date:r.date,no:r.e.no,name:r.e.name,first,last:outs.at(-1)?.time||'—',late:li?li.label:'—',lateMinutes:li?.lateMinutes??0,afterGraceMinutes:li?.afterGraceMinutes??0,status:li?.isLate?'متأخر':(li?'حاضر ضمن الوقت':'غياب'),count:r.logs.length}});
- $('reportRows').innerHTML=reportCache.map(r=>`<tr><td>${r.date}</td><td>${esc(r.no)}</td><td>${esc(r.name)}</td><td>${r.first}</td><td>${r.last}</td><td>${esc(r.late)}</td><td>${r.status}</td><td>${r.count}</td></tr>`).join('')||'<tr><td colspan="8" class="empty">لا توجد نتائج في الفترة المحددة</td></tr>'
-}
-function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
-function download(name,content,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-function exportCSV(){
- if(!requireManager())return;renderReport();let rows=['التاريخ,الرقم الوظيفي,الموظف,أول حضور,آخر انصراف,مدة التأخير,الحالة,عدد الحركات',...reportCache.map(r=>[r.date,r.no,r.name,r.first,r.last,r.late,r.status,r.count].map(csv).join(','))];download('attendance-report.csv','\ufeff'+rows.join('\n'),'text/csv;charset=utf-8')}
-function backup(){
- if(!requireManager())return;download('face-attendance-backup.json',JSON.stringify(db),'application/json')}
-function restoreBackup(){
- if(!requireManager())return;
- let f=$('restoreFile').files[0];if(!f)return alert('اختر ملف النسخة الاحتياطية');
- let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.employees)||!Array.isArray(x.logs))throw Error();db=x;saveDB();refresh();alert('تمت استعادة النسخة الاحتياطية')}catch(e){alert('الملف غير صالح')}};r.readAsText(f)
-}
-function clearAll(){
- if(!requireManager())return;
- if(confirm('سيتم حذف جميع الموظفين والوجوه والصور والسجلات. هل أنت متأكد؟')){db={employees:[],logs:[],settings:{start:'08:00',end:'16:00',grace:10}};saveDB();refresh()}
-}
-function saveSettings(){
- if(!requireManager())return;db.settings={start:$('workStart').value||'08:00',end:$('workEnd').value||'16:00',grace:Math.max(0,Number($('grace').value)||0)};saveDB();refresh();alert('تم حفظ الإعدادات')}
-function refresh(){
- setupPad('enrollSign');setupPad('attendanceSign');renderEmployees();renderToday();renderDashboard();fillReportEmployees();
- $('workStart').value=db.settings.start;$('workEnd').value=db.settings.end;$('grace').value=db.settings.grace;
-}
-$('fromDate').value=today();$('toDate').value=today();switchTab('attendance');refresh();loadModels();
-(async()=>{try{const {data:{session}}=await supabase.auth.getSession();if(session){const {data:profile}=await supabase.from('profiles').select('role').eq('id',session.user.id).maybeSingle();if(profile?.role==='manager'){managerUnlocked=true;document.body.classList.add('manager-on');$('managerBtn').textContent='🔓 خروج المدير';$('managerBtn').onclick=managerLogout;await pullCloudData();cloudBadge('متصل بالسحابة',true)}else{await supabase.auth.signOut()}}}catch(e){console.warn('Session restore:',e.message);cloudBadge('تعذر الاتصال')}})();
-window.addEventListener('beforeunload',()=>{stopCamera('enroll');stopCamera('attendance')});
-</script>
+<div class="box"><h3>حركات اليوم</h3><div class="tablewrap"><table><thead><tr><th>الموظف</th><th>الوقت</th><th>الحركة</th><th>التأخير</th><th>الموقع</th></tr></thead><tbody id="today"></tbody></table></div></div></div>
+</section>
+<section id="employees" class="panel"><div class="grid"><div class="box"><h3>إضافة / تعديل موظف</h3>
+<input id="editId" type="hidden"><div class="form"><div><label>الرقم الوظيفي *</label><input id="empNo"></div><div><label>اسم الموظف *</label><input id="empName"></div><div><label>القسم</label><input id="empDept"></div><div><label>المسمى الوظيفي</label><input id="empTitle"></div><div><label>البريد (اختياري)</label><input id="empEmail" type="email"></div><div><label>الحالة</label><select id="empActive"><option value="true">نشط</option><option value="false">موقوف</option></select></div></div>
+<label>صورة الوجه المرجعية</label><input id="faceFile" type="file" accept="image/*" capture="user"><p class="help">اختر صورة واضحة للوجه؛ سيستخرج النظام بصمة رقمية للوجه ويحفظها في قاعدة بيانات مؤسستك. احصل على موافقة الموظف قبل التسجيل.</p>
+<div class="actions"><button id="saveEmployee">حفظ الموظف</button><button id="clearEmployee" class="secondary">جديد / مسح</button></div><div id="empStatus" class="status">أضف بيانات الموظف واختر صورة وجه لتفعيل التعرف الآلي.</div>
+</div><div class="box"><h3>الموظفون</h3><input id="empSearch" placeholder="بحث بالاسم أو الرقم"><div class="tablewrap"><table><thead><tr><th>الرقم</th><th>الاسم</th><th>القسم</th><th>الوجه</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="employeesRows"></tbody></table></div></div></div></section>
+<section id="reports" class="panel"><div class="box"><h3>تقارير الحضور والتأخير</h3>
+<div class="toolbar"><div><label>من تاريخ</label><input id="dateFrom" type="date"></div><div><label>إلى تاريخ</label><input id="dateTo" type="date"></div><div><label>الموظف</label><select id="reportEmp"><option value="">الكل</option></select></div><button id="runReport">عرض التقرير</button><button id="csvBtn" class="secondary">تصدير CSV</button></div>
+<div class="cards" style="margin-top:14px"><div class="card"><small>إجمالي الحركات</small><div class="num" id="rCount">0</div></div><div class="card"><small>إجمالي دقائق التأخير</small><div class="num amber" id="rLate">0</div></div><div class="card"><small>عدد أيام الحضور</small><div class="num green" id="rDays">0</div></div><div class="card"><small>عدد الانصرافات</small><div class="num" id="rOut">0</div></div></div>
+<div class="tablewrap"><table><thead><tr><th>التاريخ والوقت</th><th>الرقم</th><th>الموظف</th><th>الحركة</th><th>دقائق التأخير</th><th>الموقع/الإحداثيات</th><th>الطريقة</th></tr></thead><tbody id="reportRows"></tbody></table></div></div></section>
+<section id="settings" class="panel"><div class="grid"><div class="box"><h3>إعدادات الدوام</h3>
+<label>بداية الدوام</label><input id="startTime" type="time" value="08:00"><label>نهاية الدوام</label><input id="endTime" type="time" value="16:00"><label>فترة السماح بالدقائق</label><input id="grace" type="number" min="0" value="10"><label>المنطقة الزمنية</label><input id="timezone" value="Asia/Aden"><label>نطاق الموقع المسموح (متر) - صفر لتعطيل التقييد</label><input id="radius" type="number" min="0" value="0"><label>خط العرض لموقع العمل</label><input id="siteLat" type="number" step="any"><label>خط الطول لموقع العمل</label><input id="siteLng" type="number" step="any"><div class="actions"><button id="saveSettings">حفظ الإعدادات</button><button id="getSiteLocation" class="secondary">استخدام موقعي الحالي كموقع عمل</button></div><div id="settingsStatus" class="status">الموقع يُطلب وقت تسجيل الحركة فقط، ولا يوجد تتبع مستمر.</div>
+</div><div class="box"><h3>معلومات النظام والخصوصية</h3><p class="help">• البيانات تحفظ في قاعدة Supabase السحابية وتخضع لصلاحيات RLS في ملف SQL.<br>• لا تضع مفتاح Service Role في المتصفح.<br>• بيانات الوجه حساسة؛ استخدم المشروع لموظفيك المصرح بهم فقط، واحتفظ بسياسة موافقة ومدة احتفاظ وحذف واضحة.<br>• الموقع الجغرافي اختياري افتراضياً. عند تفعيل نصف القطر، يمنع التسجيل خارج النطاق المحدد.<br>• وقت الجهاز والمنطقة الزمنية يحددان وقت التسجيل؛ اضبط أجهزة الموظفين بصورة صحيحة.</p><button id="refreshData" class="secondary">مزامنة البيانات الآن</button><div id="syncStatus" class="status">جاهز.</div></div></div></section>
+</div>
+</main>
+<script src="app.js"></script>
 </body></html>
